@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: main_api
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - BASE_URL=${BASE_URL}
+      - TOKEN=${TOKEN}
+      - TEAM_ID=${TEAM_ID}
+      - CERT_PATH=${CERT_PATH}
+      - TOKEN_NAUTOBOT=${TOKEN_NAUTOBOT}
+      - URL_NAUTOBOT=${URL_NAUTOBOT}
+      - TOKEN_ONCALL=${TOKEN_ONCALL}
+      - BUCKET_NAME=${BUCKET_NAME}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+
+  redis:
+    image: redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  redis_data:
