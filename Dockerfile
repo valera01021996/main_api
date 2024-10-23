@@ -13,12 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем весь проект в рабочую директорию
 COPY . .
 
-# Указываем переменные окружения
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
 # Открываем порт 5000 для доступа к приложению
 EXPOSE 5000
 
-# Запускаем приложение
-CMD ["flask", "run"]
+# Запускаем приложение с использованием gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
