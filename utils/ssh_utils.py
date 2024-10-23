@@ -1,7 +1,7 @@
 import os
 import paramiko
-from minio_utils import upload_to_minio
-from mm_utils import send_message_to_channel
+from utils.minio_utils import upload_to_minio
+from utils.mm_utils import send_message_to_channel
 
 def connect_via_ssh_to_host(hostname, port=22, username="root", password="123456"):
     ssh_client = paramiko.SSHClient()
